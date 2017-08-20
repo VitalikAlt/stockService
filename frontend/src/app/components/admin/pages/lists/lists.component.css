@@ -1,0 +1,26 @@
+.pointer-half {
+  cursor: pointer;
+  width: 100%;
+}
+
+.list-states {
+  display: flex;
+  flex-direction: row;
+}
+
+.centred th {
+  text-align: center;
+}
+
+.centred td {
+  text-align: center;
+}
+
+.pointer-center {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.tooltipped {
+  font-size: 18px;
+}

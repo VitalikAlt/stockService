@@ -1,0 +1,116 @@
+<div>
+  <div class="col s12 tabs-container">
+    <ul class="tabs list-states" materialize="tabs" (click)="test()">
+      <li class="tab pointer-half"><a [routerLinkActive]="['active']" (click)="state = false">Студенты</a></li>
+      <li class="tab pointer-half"><a [routerLinkActive]="['active']" (click)="state = true">Преподаватели</a></li>
+    </ul>
+  </div>
+  <div *ngIf="!state">
+    <table class="table bordered highlight centred">
+      <tr>
+        <th></th>
+        <th>№</th>
+        <th>ФИО</th>
+        <th>Курс</th>
+        <th>Взвод</th>
+        <th>Действия</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>-</td>
+        <td>Input1</td>
+        <td>Input2</td>
+        <td>Input3</td>
+        <td><i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center">add</i></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>Жуков В. А.</td>
+        <td>3</td>
+        <td>7</td>
+        <!--редактировать профиль, редактировать логин и пароль, удалить-->
+        <td>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>Жуков В. А.</td>
+        <td>3</td>
+        <td>7</td>
+        <!--редактировать профиль, редактировать логин и пароль, удалить-->
+        <td>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>Жуков В. А.</td>
+        <td>3</td>
+        <td>7</td>
+        <!--редактировать профиль, редактировать логин и пароль, удалить-->
+        <td>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="state">
+    <table class="table bordered highlight centred">
+      <tr>
+        <th></th>
+        <th>№</th>
+        <th>ФИО</th>
+        <th>Действия</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>-</td>
+        <td>Input1</td>
+        <td><i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center">add</i></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>Жуков В. А.</td>
+        <!--редактировать профиль, редактировать логин и пароль, удалить-->
+        <td>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>Жуков В. А.</td>
+        <!--редактировать профиль, редактировать логин и пароль, удалить-->
+        <td>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>Жуков В. А.</td>
+        <!--редактировать профиль, редактировать логин и пароль, удалить-->
+        <td>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

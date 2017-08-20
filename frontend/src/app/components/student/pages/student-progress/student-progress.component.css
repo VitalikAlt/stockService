@@ -1,0 +1,27 @@
+.general-info-table{
+  width: 30%;
+}
+
+@media only screen and (max-width : 992px) {
+  .general-info-table{
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width : 560px) {
+  .general-info-table{
+    width: 100%;
+  }
+}
+
+.general-info-container h6{
+  margin-top: 0px;
+}
+
+.student-page-container{
+  padding: 10px;
+}
+
+.student-page-container h5{
+  margin-bottom: 10px;
+}

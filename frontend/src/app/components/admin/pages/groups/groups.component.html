@@ -1,0 +1,47 @@
+<div>
+  <div class="up-curs">
+    <span class="pointer-center" (click)="openModalCurseUp()">
+      Перевести на новый курс  <i class="small material-icons pointer-center">change_history</i>
+    </span>
+  </div>
+  <table class="table bordered highlight centred">
+    <tr>
+      <th (click)="changeSort('course')" class="pointer-center">
+        Курс
+        <i *ngIf="sort[0] === 'course' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'course' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+      <th (click)="changeSort('squad')" class="pointer-center">
+        Взвод
+        <i *ngIf="sort[0] === 'squad' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'squad' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+      <th (click)="changeSort('count')" class="pointer-center">
+        Кол-во человек
+        <i *ngIf="sort[0] === 'count' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'count' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+    </tr>
+    <tr>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по курсу" [(ngModel)]="course_search" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по взводу" [(ngModel)]="squad_search" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по количеству" [(ngModel)]="count_search" [ngModelOptions]="{standalone: true}"></td>
+    </tr>
+    <tr *ngFor="let group of groupsByFilter()">
+      <td>{{group.course}}</td>
+      <td>{{group.squad}}</td>
+      <td>{{group.count}}</td>
+    </tr>
+  </table>
+</div>
+
+<div id="modalCourseUp" class="modal bottom-sheet" materialize="modal" [materializeActions]="modalCurseUp">
+  <div class="modal-content">
+    <h4>Перевод на новый курс</h4>
+    <p>Вы уверенны, что хотите перевести все взвода на новый курс?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="upCourse(); closeModalCurseUp()">Да</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalCurseUp()">Отмена</button>
+  </div>
+</div>

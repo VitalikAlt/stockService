@@ -1,0 +1,39 @@
+<nav>
+  <ul id="slide-out" class="side-nav fixed">
+    <li class="tab">
+      <div class="userView">
+        <div class="background">
+        </div>
+        <a>
+          <div class="userImg"></div>
+          <span class="white-text name" style="margin-left: 10px">Косов Р. М.</span>
+        </a>
+      </div>
+    </li>
+    <li class="tab"><a [routerLink]="['profile']" [routerLinkActive]="['active']">Профиль</a></li>
+    <li class="tab"><a [routerLink]="['journal']" [routerLinkActive]="['active']">Журнал</a></li>
+    <li class="tab"><a [routerLink]="['schedule']" [routerLinkActive]="['active']">Расписание</a></li>
+    <li class="tab"><a [routerLink]="['reports']" [routerLinkActive]="['active']">Отчёты</a></li>
+    <li class="tab"><a routerLink="/auth">Выйти</a></li>
+  </ul>
+  <a materialize="sideNav" [materializeParams]="[{edge:'left', draggable: true, menuWidth: 300, closeOnClick: true}]"
+     href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  <a class="current-route" [routerLink]="['profile']" [routerLinkActive]="['d-flex']"><h4>Профиль</h4></a>
+  <a class="current-route" [routerLink]="['journal']" [routerLinkActive]="['d-flex']"><h4>Журнал</h4></a>
+  <a class="current-route" [routerLink]="['schedule']" [routerLinkActive]="['d-flex']"><h4>Расписание</h4></a>
+  <a class="current-route" [routerLink]="['reports']" [routerLinkActive]="['d-flex']"><h4>Отчёты</h4></a>
+</nav>
+
+<div class="col s12 tabs-container">
+  <ul class="tabs" materialize="tabs">
+    <li class="tab col s3 pull-right"><a routerLink="/auth">Выйти</a></li>
+    <li class="tab col s3"><a [routerLink]="['profile']" [routerLinkActive]="['active']">Профиль</a></li>
+    <li class="tab col s3"><a [routerLink]="['journal']" [routerLinkActive]="['active']">Журнал</a></li>
+    <li class="tab col s3"><a [routerLink]="['schedule']" [routerLinkActive]="['active']">Расписание</a></li>
+    <li class="tab col s3"><a [routerLink]="['reports']" [routerLinkActive]="['active']">Отчёты</a></li>
+  </ul>
+</div>
+
+<div class="main-container">
+  <router-outlet></router-outlet>
+</div>

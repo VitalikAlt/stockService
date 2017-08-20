@@ -1,0 +1,17 @@
+.journal-page-container{
+  background-color: white;
+  padding: 15px;
+}
+
+table {
+  display: flex;
+  overflow-x: auto;
+}
+
+label {
+  font-size: 11px;
+}
+
+td input {
+  margin: 0;
+}

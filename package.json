@@ -1,0 +1,29 @@
+{
+  "name": "Dictionary",
+  "version": "0.0.1",
+  "description": "Dictionary",
+  "main": "Server.js",
+  "scripts": {
+    "start": "node --harmony ServerWatcher.js",
+    "server": "node --harmony Server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VitalikAlt/node-server-template.git"
+  },
+  "author": "Vitalik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VitalikAlt/node-server-template/issues"
+  },
+  "homepage": "https://github.com/VitalikAlt/node-server-template#readme",
+  "dependencies": {
+    "formidable": "1.1.1",
+    "log4js": "1.1.1",
+    "mongoose": "4.9.6"
+  },
+  "devDependencies": {
+    "node-watch": "0.5.2"
+  }
+}

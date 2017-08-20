@@ -1,0 +1,60 @@
+.teacher-page-container h3{
+  margin: 0px 10px 10px 0px;
+}
+
+.teacher-page-container{
+  background-color: white;
+  padding: 15px;
+}
+
+.student-img-container{
+  width: auto;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.student-img-container button {
+  margin-top: 10px;
+}
+
+.student-card{
+  display: flex;
+  padding-left: 15px;
+}
+
+.student-small-card{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.student-detailed-card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.small-screen {
+  display: none;
+}
+
+@media only screen and (max-width : 992px) {
+  .student-img-container, .big-screen {
+    display: none;
+  }
+
+  .small-screen {
+    display: table-row;
+  }
+}
+
+@media only screen and (max-width : 480px) {
+  .student-card {
+    padding-left: 0;
+    text-align: center;
+  }
+}

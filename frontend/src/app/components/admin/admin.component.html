@@ -1,0 +1,32 @@
+<nav>
+  <ul id="slide-out" class="side-nav fixed">
+    <li class="tab">
+      <div class="userView">
+        <div class="background"></div>
+        <div style="height: 50px;"></div>
+      </div>
+    </li>
+    <li class="tab"><a [routerLink]="['lists']" [routerLinkActive]="['active']">Списки</a></li>
+    <li class="tab"><a [routerLink]="['subjects']" [routerLinkActive]="['active']">Дисциплины</a></li>
+    <li class="tab"><a [routerLink]="['groups']" [routerLinkActive]="['active']">Группы</a></li>
+    <li class="tab"><a routerLink="/auth">Выйти</a></li>
+  </ul>
+  <a materialize="sideNav" [materializeParams]="[{edge:'left', draggable: true, menuWidth: 300, closeOnClick: true}]"
+     href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  <a class="current-route" [routerLink]="['lists']" [routerLinkActive]="['d-flex']"><h4>Списки</h4></a>
+  <a class="current-route" [routerLink]="['subjects']" [routerLinkActive]="['d-flex']"><h4>Дисциплины</h4></a>
+  <a class="current-route" [routerLink]="['groups']" [routerLinkActive]="['d-flex']"><h4>Группы</h4></a>
+</nav>
+
+<div class="col s12 tabs-container">
+  <ul class="tabs" materialize="tabs">
+    <li class="tab col s3 pull-right"><a routerLink="/auth">Выйти</a></li>
+    <li class="tab col s3"><a [routerLink]="['lists']" [routerLinkActive]="['active']">Списки</a></li>
+    <li class="tab col s3"><a [routerLink]="['subjects']" [routerLinkActive]="['active']">Дисциплины</a></li>
+    <li class="tab col s3"><a [routerLink]="['groups']" [routerLinkActive]="['active']">Группы</a></li>
+  </ul>
+</div>
+
+<div class="main-container">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="card card-container">
+    <img id="profile-img" class="profile-img-card" src="./../../../assets/images/default/avatar_2x.png" />
+    <p id="profile-name" class="profile-name-card"></p>
+    <form  class="form-signin">
+      <span id="reauth-email" class="reauth-email"></span>
+      <input type="text" id="inputEmail" class="form-control" placeholder="Имя пользователя" [(ngModel)]="login" [ngModelOptions]="{standalone: true}" required autofocus>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required>
+      <div id="remember" class="checkbox">
+        <input class="filled-in" type="checkbox" id="remember-me" />
+        <label for="remember-me" style="font-size: 14px">Запомнить меня</label>
+      </div>
+      <span id="incorrect-input" class="incorrect-input" *ngIf="incorrectInput">Неверное имя пользователя или пароль!</span>
+      <button type="button" style="padding-top: 5px" class="btn btn-lg btn-primary btn-block btn-signin" (click)="enter()" >Войти</button>
+    </form>
+    <!--<a href="#" class="forgot-password">-->
+      <!--Forgot the password?-->
+    <!--</a>-->
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<div>
+  <table class="table bordered highlight centred">
+    <tr>
+      <th>№</th>
+      <th (click)="changeSort('name')" class="pointer-center">
+        Название
+        <i *ngIf="sort[0] === 'name' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'name' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+      <th (click)="changeSort('teacher')" class="pointer-center">
+        Преподаватель
+        <i *ngIf="sort[0] === 'teacher' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'teacher' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+      <th>Действия</th>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по названию" [(ngModel)]="name_search" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по преподавателю" [(ngModel)]="teacher_search" [ngModelOptions]="{standalone: true}"></td>
+      <td><i (click)="openModalDisciplineAdd()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center">add</i></td>
+    </tr>
+    <tr *ngFor="let subject of subjectsByFilter(); let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{subject.name}}</td>
+      <td>{{subject.teacher}}</td>
+      <!--редактировать профиль, редактировать логин и пароль, удалить-->
+      <td>
+        <i (click)="openModalSubjectEdit(); selectedItem = subject" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать группы" class="small material-icons pointer-center">chrome_reader_mode</i>
+        <i (click)="openModalSubjectDelete(); selectedItem = subject" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div id="addDisciplineModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="addDisciplineModal">
+  <div class="modal-content">
+    <div class="main-content">
+      <h4 class="main">Добавить новую дисциплину</h4>
+      <span>Название дисциплины:</span>
+      <input type="text" class="form-control" [(ngModel)]="disciplineName" [ngModelOptions]="{standalone: true}">
+      <br>
+      <span>Преподаватель:</span>
+      <input type="text" class="form-control" [(ngModel)]="teacherSearch" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="teachers-list">
+      <table class="table bordered highlight centred">
+        <tr *ngFor="let teacher of teachersByFilter()">
+          <td (click)="teacherSearch = teacher.name" class="pointer-center">{{teacher.name}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeModalDisciplineAdd()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalDisciplineAdd()">Отмена</button>
+  </div>
+</div>
+
+<div id="editSubjectModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="editSubjectModal">
+  <div class="modal-content">
+    <div class="main-content">
+      <h4 class="main">Редактировать группы</h4>
+      <span>Отметьте те группы, у которых есть данная дисциплина, и нажмите сохранить:</span>
+    </div>
+    <div class="teachers-list">
+      <table class="table bordered highlight centred">
+        <tr>
+          <th>Добавленна</th>
+          <th>Курс</th>
+          <th>Взвод</th>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="filled-in" id="filled-in-box" [(ngModel)]="groupAssignedSearch" [ngModelOptions]="{standalone: true}"/></td>
+          <td class="search"><input type="text" class="form-control" placeholder="Поиск по курсу" [(ngModel)]="groupCourseSearch" [ngModelOptions]="{standalone: true}"></td>
+          <td class="search"><input type="text" class="form-control" placeholder="Поиск по взводу" [(ngModel)]="groupSquadSearch" [ngModelOptions]="{standalone: true}"></td>
+        </tr>
+        <tr *ngFor="let group of groupsByFilter()" class="pointer-center">
+          <td><input type="checkbox" class="filled-in" [(ngModel)]="group.assigned" [ngModelOptions]="{standalone: true}"></td>
+          <td>{{group.course}}</td>
+          <td>{{group.squad}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeModalSubjectEdit()">Сохранить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalSubjectEdit()">Отмена</button>
+  </div>
+</div>
+
+<div id="deleteSubjectModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="deleteSubjectModal">
+  <div class="modal-content">
+    <div class="main-content">
+      <h4 class="main">Удаление дисциплины</h4>
+      Вы точно уверенны, что хотите удалить дисциплину?<br><br>
+      <b>*Внимание! Это действие нельзя будет отменить!</b>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat red" (click)="deleteSubject(); closeModalSubjectDelete()">Удалить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalSubjectDelete()">Отмена</button>
+  </div>
+</div>
