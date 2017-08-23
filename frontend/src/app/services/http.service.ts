@@ -53,4 +53,29 @@ export class HttpService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+
+  getStock() {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'stock/get';
+
+    return this.http
+      .post(url, JSON.stringify({}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getReserves(user, stockId) {
+    console.log(stockId)
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'reserves/get';
+
+    return this.http
+      .post(url, JSON.stringify({login: user.login, password: user.password, stock_id: stockId}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 }

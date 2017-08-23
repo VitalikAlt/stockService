@@ -8,6 +8,9 @@ class BaseRoute {
     }
 
     checkParamsAndHandle() {
+        if (this.secretRequest && this.params.secret_key !== this.core.cfg.secret_key)
+            return this.sendResponse(this.core.errors['BAD_PARAMS']('secret_key'), 400);
+
         if (!this.paramNames)
             return this.handle();
 
@@ -30,6 +33,7 @@ class BaseRoute {
 
     sendResponse(data, requestCode) {
         this.core.log.debug('Send request responce: ', JSON.stringify(data));
+        this.res.setHeader('content-type', 'text/javascript');
         this.res.writeHead(requestCode);
         this.res.end(JSON.stringify(data));
     }

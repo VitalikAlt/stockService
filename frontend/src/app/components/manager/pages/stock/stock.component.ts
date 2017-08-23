@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import {MaterializeAction} from "angular2-materialize";
+import {HttpService} from '../../../../services/http.service';
+import {UserService} from '../../../../services/user.service';
 
 @Component({
   selector: 'app-manager-stock',
@@ -11,7 +13,7 @@ export class ManagerStockComponent implements OnInit {
   public reservesModal = new EventEmitter<string|MaterializeAction>();
 
   public sort = ['name', false];
-  public currentStock: any;
+  public currentStock: any = {};
 
   public search = {
     name: '',
@@ -43,14 +45,25 @@ export class ManagerStockComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private httpService: HttpService, private userService: UserService) { }
 
   ngOnInit() {
-
+    this.httpService.getStock()
+      .subscribe((res) => {
+        this.stock = res;
+      }, (err) => {
+        console.log(err)
+      })
   }
 
   openReservesModal() {
-    this.reservesModal.emit({action:"modal", params:['open']});
+    this.httpService.getReserves(this.userService.user, this.currentStock._id)
+      .subscribe((res) => {
+        this.currentStock.reserves = res;
+        this.reservesModal.emit({action:"modal", params:['open']});
+      }, (err) => {
+        console.log(err);
+      });
   }
 
   closeReservesModal() {
@@ -76,10 +89,22 @@ export class ManagerStockComponent implements OnInit {
     })
   }
 
+  reservesByFilter() {
+    return this.currentStock.reserves;
+  }
+
   changeSort(type) {
     this.sort[1] = (this.sort[0] === type)?
       !this.sort[1] : false;
 
     this.sort[0] = type;
+  }
+
+  addReserve() {
+    this.currentStock.reserves.push({
+      author_name: this.userService.user.name,
+      author_login: this.userService.user.login,
+      date: new Date()
+    })
   }
 }

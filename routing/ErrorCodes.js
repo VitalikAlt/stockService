@@ -51,7 +51,7 @@ class ErrorCodes {
         return {
             status: 500,
             error: 'Json parse error',
-            message: `error, when parse json ${JSON.parse(err)}`
+            message: `error, when parse json ${JSON.stringify(err)}`
         }
     }
 }

@@ -40,6 +40,7 @@ class Environment {
 
     initConfigs() {
         try {
+            this.core.cfg = Object.assign({}, require('./../config/secret.json'));
             this.core.log.info('Init configs success');
         } catch (err) {
             console.log('Init Configs error:', err);

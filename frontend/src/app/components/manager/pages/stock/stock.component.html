@@ -30,11 +30,11 @@
     </tr>
     <tr>
       <td>-</td>
-      <td class="search"><input type="text" class="form-control" placeholder="Поиск по названию" [(ngModel)]="search.name" [ngModelOptions]="{standalone: true}"></td>
-      <td class="search"><input type="text" class="form-control" placeholder="Поиск по размеру" [(ngModel)]="search.size" [ngModelOptions]="{standalone: true}"></td>
-      <td class="search"><input type="text" class="form-control" placeholder="Поиск по росту" [(ngModel)]="search.growth" [ngModelOptions]="{standalone: true}"></td>
-      <td class="search"><input type="text" class="form-control" placeholder="Поиск по количеству" [(ngModel)]="search.count" [ngModelOptions]="{standalone: true}"></td>
-      <td class="search"><input type="text" class="form-control" placeholder="Поиск по резервам" [(ngModel)]="search.reserves" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input class="form-control" placeholder="Поиск по названию" [(ngModel)]="search.name" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input class="form-control" placeholder="Поиск по размеру" [(ngModel)]="search.size" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input class="form-control" placeholder="Поиск по росту" [(ngModel)]="search.growth" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input class="form-control" placeholder="Поиск по количеству" [(ngModel)]="search.count" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input class="form-control" placeholder="Поиск по резервам" [(ngModel)]="search.reserves" [ngModelOptions]="{standalone: true}"></td>
     </tr>
     <tr *ngFor="let stock of stockByFilters(); let i = index">
       <td>{{i + 1}}</td>
@@ -42,31 +42,70 @@
       <td>{{stock.size}}</td>
       <td>{{stock.growth}}</td>
       <td>{{stock.count}}</td>
-      <td class="pointer-center" (click)="openReservesModal(); currentStock = stock">{{stock.reserves}}</td>
+      <td class="pointer-center" (click)="currentStock = stock; openReservesModal()">{{stock.reserves_count}}</td>
     </tr>
   </table>
 </div>
 
 <div id="reservesModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="reservesModal">
   <div class="modal-content">
-    <div class="main-content">
-      <h4 class="main">Резервы: {{currentStock.reserves}}</h4>
-      <span>Название дисциплины:</span>
-      <!--<input type="text" class="form-control" [(ngModel)]="disciplineName" [ngModelOptions]="{standalone: true}">-->
-      <br>
-      <span>Преподаватель:</span>
-      <!--<input type="text" class="form-control" [(ngModel)]="teacherSearch" [ngModelOptions]="{standalone: true}">-->
+    <div class="right-align">
+      <a class="btn-floating btn-medium waves-effect waves-light grey" style="margin-bottom: 10px" (click)="addReserve()"><i class="material-icons">add</i></a>
     </div>
     <div class="teachers-list">
-      <!--<table class="table bordered highlight centred">-->
-        <!--<tr *ngFor="let teacher of teachersByFilter()">-->
+      <table class="table bordered highlight centred">
+        <tr>
+          <th>Дата создания</th>
+          <th>Менеджер</th>
+          <th>Кол-во*</th>
+          <th>Оплата</th>
+          <th>Дата выгрузки</th>
+          <th>Клиент*</th>
+          <th>Номер счёта</th>
+          <th>Кто шьёт</th>
+          <th>Дата пошива</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let reserve of reservesByFilter()" class="reserves">
+          <td>
+            {{reserve.date.toLocaleDateString()}}
+          </td>
+          <td>
+            <input class="form-control" [(ngModel)]="reserve.author_name" [disabled]="reserve.author_login !== userService.user.login">
+          </td>
+          <td>
+            <input class="form-control" [(ngModel)]="reserve.count" [disabled]="reserve.author_login !== userService.user.login">
+          </td>
+          <td>
+            <input class="form-control" [(ngModel)]="reserve.payment" [disabled]="reserve.author_login !== userService.user.login">
+          </td>
+          <td>
+            <input class="form-control" [(ngModel)]="reserve.unloading_date" [disabled]="reserve.author_login !== userService.user.login">
+          </td>
+          <td>
+            <input class="form-control" [(ngModel)]="reserve.client" [disabled]="reserve.author_login !== userService.user.login">
+          </td>
+          <td>
+            <input class="form-control" [(ngModel)]="reserve.payment_id" [disabled]="reserve.author_login !== userService.user.login">
+          </td>
+          <td>
+            <input class="form-control" [(ngModel)]="reserve.maker" [disabled]="reserve.author_login !== userService.user.login">
+          </td>
+          <td>
+            <input class="form-control" [(ngModel)]="reserve.make_date" [disabled]="reserve.author_login !== userService.user.login">
+          </td>
+          <td>
+            <a class="btn-floating btn-tiny waves-effect waves-light red" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Заполенены не все поля с *!">
+              <i class="material-icons">priority_high</i>
+            </a>
+          </td>
           <!--<td (click)="teacherSearch = teacher.name" class="pointer-center">{{teacher.name}}</td>-->
-        <!--</tr>-->
-      <!--</table>-->
+        </tr>
+      </table>
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="closeReservesModal()">Добавить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="closeReservesModal()">Сохранить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeReservesModal()">Отмена</button>
   </div>
 </div>

@@ -1,9 +1,10 @@
-import { Component, OnInit} from '@angular/core';
-import  { Router } from '@angular/router';
-import { HttpService } from '../../services/http.service';
-import { Md5 } from 'ts-md5/dist/md5';
-import { Cookie } from 'ng2-cookies';
-import { UserService } from '../../services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {HttpService} from '../../services/http.service';
+import {Md5} from 'ts-md5/dist/md5';
+import {Cookie} from 'ng2-cookies';
+import {UserService} from '../../services/user.service';
+import {AuthGuard} from '../../services/auth_guard.service'
 
 @Component({
   selector: 'app-auth',
@@ -17,23 +18,20 @@ export class AuthComponent implements OnInit {
   public incorrectInput: boolean;
   public remember: boolean = false;
 
-  constructor(private router: Router, private httpService: HttpService, private userService: UserService){ }
-
-  ngOnInit() {
-    this.incorrectInput = false;
+  constructor(private router: Router, private httpService: HttpService,
+              private userService: UserService, private authGuard: AuthGuard) {
   }
 
-  enter () {
+  async ngOnInit() {
+    this.incorrectInput = false;
+    (await this.authGuard.activate()) ? this.route(this.userService.user) : null;
+  }
+
+  enter() {
     const password = Md5.hashStr(this.password).toString();
     this.httpService.signIn(this.login, password)
       .subscribe((result) => {
-        switch (result.role) {
-          case 'manager':
-            this.router.navigate(['/manager']);
-            this.saveUserData(this.login, password, result.role, result.name);
-            break;
-          default: this.incorrectInput = true; break;
-        }
+        this.route({login: this.login, password, role: result.role, name: result.name});
       }, (error) => {
         this.incorrectInput = true;
       })
@@ -50,18 +48,29 @@ export class AuthComponent implements OnInit {
     //   }
     // }
     // else this.incorrectInput = true;
-
   }
 
-  saveUserData(login, password, role, name) {
-    this.userService.set({login, password, role, name});
+  route(user) {
+    switch (user.role) {
+      case 'manager':
+        this.saveUserData(user);
+        this.router.navigate(['/manager']);
+        break;
+      default:
+        this.incorrectInput = true;
+        break;
+    }
+  }
+
+  saveUserData(user) {
+    this.userService.set(user);
 
     if (!this.remember)
       return;
 
-    Cookie.set('stock_login', login);
-    Cookie.set('stock_password', password);
-    Cookie.set('stock_role', role);
-    Cookie.set('stock_name', name);
+    Cookie.set('stock_login', user.login);
+    Cookie.set('stock_password', user.password);
+    Cookie.set('stock_role', user.role);
+    Cookie.set('stock_name', user.name);
   }
 }

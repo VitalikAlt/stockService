@@ -1,38 +1,58 @@
-import { Injectable } from '@angular/core';
-import { Router, CanActivate } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
+import { Injectable } from '@angular/core';
+import { CanActivate } from '@angular/router';
 import { UserService } from './user.service';
 import { HttpService } from './http.service';
 
+//TODO need rewiew
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private userService: UserService) {}
 
-  canActivate(route, state): boolean {
-    const cookies = Cookie.getAll();
+  canActivate(route, state): Promise<boolean> {
+    return new Promise((res, rej) => {
 
-    if (!cookies.stock_login)
-      return false;
+      if (!this.userService.user) {
+        const cookies = Cookie.getAll();
 
-    this.getRole(cookies, route.url[0].path)
-      .then((res) => {
-        console.log(res)
-        return res
-      }, (rej) => {
-        console.log(rej)
-        return rej
-      })
+        if (!cookies.stock_login)
+          return false;
+
+        this.userService.set({login: cookies.stock_login, password: cookies.stock_password});
+      }
+
+      return this.httpService.signIn(this.userService.user.login, this.userService.user.password)
+        .subscribe((result) => {
+          const accept = result.role === route.url[0].path;
+          accept? this.userService.set(Object.assign(this.userService.user, result)) : null;
+          return res(accept);
+        }, (error) => {
+          return rej(error);
+        });
+    })
   }
 
-  getRole(cookies, route) {
+  activate() {
     return new Promise((res, rej) => {
-      this.httpService.signIn(cookies.stock_login, cookies.stock_password)
+
+      if (!this.userService.user || !this.userService.user.login) {
+        const cookies = Cookie.getAll();
+
+        if (!cookies.stock_login)
+          return false;
+
+        this.userService.set({login: cookies.stock_login, password: cookies.stock_password});
+      }
+
+      return this.httpService.signIn(this.userService.user.login, this.userService.user.password)
         .subscribe((result) => {
-          res(result.role === route)
+          this.userService.set(Object.assign(this.userService.user, result));
+          return res(true);
         }, (error) => {
-          rej(error);
-        })
+          return rej(error);
+        });
+
     })
   }
 }

@@ -1,35 +1,31 @@
-var User = require('./table');
+const Reserve = require('./table');
 
-class SearchQuery {
-    static getUser(login, pass) {
+class ReservesQuery {
+    static get(params) {
         return new Promise((res, rej) => {
-            User.find({login: login, password: pass}, (err, data) => {
-                return res(data[0]);
+            Reserve.find(params, (err, data) => {
+                return res(data);
             })
         });
     }
 
-    static getUserLoginExist(login) {
+    static add(el) {
         return new Promise((res, rej) => {
-            User.find({login}, (err, data) => {
-                return res(!!(data[0]));
-            })
-        });
-    }
-
-    static addUser(el) {
-        return new Promise((res, rej) => {
-            const newItem = new User(el);
+            const newItem = new Reserve(el);
 
             newItem.save(function (err) {
-                if (!err) {
-                    return res(newItem);
-                } else {
-                    return rej(err);
-                }
+                return (!err)? res(newItem) : rej(err);
             });
         });
     }
+
+    static delete(params) {
+        return new Promise((res, rej) => {
+            Reserve.remove(params, (err, success) => {
+                return (!err)? res(success) : rej(err);
+            })
+        })
+    }
 }
 
-module.exports = SearchQuery;
+module.exports = ReservesQuery;

@@ -11,7 +11,7 @@
       </div>
     </li>
     <li class="tab"><a [routerLink]="['stock']" [routerLinkActive]="['active']">Продукция</a></li>
-    <li class="tab"><a routerLink="/auth">Выйти</a></li>
+    <li class="tab pointer-center" (click)="deleteAllCookies()"><a>Выйти</a></li>
   </ul>
   <a materialize="sideNav" [materializeParams]="[{edge:'left', draggable: true, menuWidth: 300, closeOnClick: true}]"
      href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -20,7 +20,7 @@
 
 <div class="col s12 tabs-container">
   <ul class="tabs" materialize="tabs">
-    <li class="tab col s3 pull-right"><a routerLink="/auth">Выйти</a></li>
+    <li class="tab col s3 pull-right pointer-center" (click)="deleteAllCookies()"><a>Выйти</a></li>
     <li class="tab col s3"><a [routerLink]="['stock']" [routerLinkActive]="['active']">Продукция</a></li>
   </ul>
 </div>

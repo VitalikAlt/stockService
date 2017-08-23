@@ -24,6 +24,6 @@
     "mongoose": "4.9.6"
   },
   "devDependencies": {
-    "node-watch": "0.5.2"
+    "node-watch": "^0.5.2"
   }
 }
