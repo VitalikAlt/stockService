@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { User } from '../../user';
-import { UserService } from '../../user.service'
+// import { UserService } from '../../services/user.service'
 
 @Component({
   selector: 'app-student',
@@ -11,16 +11,16 @@ import { UserService } from '../../user.service'
 })
 export class StudentComponent implements OnInit {
 
-  private user: User;
+  private user: any;
 
   constructor(
     private activeRoute: ActivatedRoute,
-    private userService: UserService
+    // private userService: UserService
   ) { }
 
   ngOnInit() {
     this.activeRoute.params
-      .switchMap((params: Params) => this.userService.getUser(+params['id']))
+      .switchMap((params: Params) => params['id'])
       .subscribe(user => this.user = user)
   }
 

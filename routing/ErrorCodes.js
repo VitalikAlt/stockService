@@ -7,6 +7,14 @@ class ErrorCodes {
         }
     }
 
+    static UNAUTHORIZED(param) {
+        return {
+            status: 401,
+            error: 'User unauthorized',
+            message: 'Incorrect login or password'
+        }
+    }
+
     static UNSUPPORTED_METHOD(param) {
         return {
             status: 405,

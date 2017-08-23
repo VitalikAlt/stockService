@@ -16,7 +16,7 @@ class SignInRoute extends BaseRoute {
             if (!res)
                 return this.complete(null, 'Error: incorrect login or password');
 
-            this.complete(res.role);
+            this.complete({role: res.role, name: res.name});
         } catch (err) {
             this.complete(null, err, 'SignIn error');
         }

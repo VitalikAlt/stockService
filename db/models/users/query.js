@@ -4,7 +4,7 @@ class SearchQuery {
     static getUser(login, pass) {
         return new Promise((res, rej) => {
             User.find({login: login, password: pass}, (err, data) => {
-                return res(!!(data[0]));
+                return res(data[0]);
             })
         });
     }

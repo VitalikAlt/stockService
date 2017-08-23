@@ -1,60 +1,41 @@
-.teacher-page-container h3{
-  margin: 0px 10px 10px 0px;
+.centred th {
+  text-align: center;
 }
 
-.teacher-page-container{
-  background-color: white;
-  padding: 15px;
+.centred td {
+  text-align: center;
 }
 
-.student-img-container{
-  width: auto;
-  margin: 0 auto;
-  padding: 10px;
+.pointer-center {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.search {
+  vertical-align: middle;
+}
+
+.search input {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.modal-content {
+  overflow: hidden !important;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-.student-img-container button {
-  margin-top: 10px;
+.main {
+  padding-bottom: 20px;
 }
 
-.student-card{
-  display: flex;
-  padding-left: 15px;
+.teachers-list {
+  overflow: auto;
 }
 
-.student-small-card{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.student-detailed-card{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.small-screen {
-  display: none;
-}
-
-@media only screen and (max-width : 992px) {
-  .student-img-container, .big-screen {
-    display: none;
-  }
-
-  .small-screen {
-    display: table-row;
-  }
-}
-
-@media only screen and (max-width : 480px) {
-  .student-card {
-    padding-left: 0;
-    text-align: center;
-  }
+[type="checkbox"] {
+  position: relative !important;
+  left: 0 !important;
+  opacity: 1 !important;
 }

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-teacher',
-  templateUrl: 'teacher.component.html',
-  styleUrls: ['teacher.component.css']
+  selector: 'app-manager',
+  templateUrl: 'manager.component.html',
+  styleUrls: ['manager.component.css']
 })
-export class TeacherComponent implements OnInit {
+export class ManagerComponent implements OnInit {
 
-  public user = {
+  public name: string = '';
 
-  }
-
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.name = this.userService.user.name;
   }
 }

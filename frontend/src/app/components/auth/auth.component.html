@@ -7,7 +7,7 @@
       <input type="text" id="inputEmail" class="form-control" placeholder="Имя пользователя" [(ngModel)]="login" [ngModelOptions]="{standalone: true}" required autofocus>
       <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required>
       <div id="remember" class="checkbox">
-        <input class="filled-in" type="checkbox" id="remember-me" />
+        <input class="filled-in" type="checkbox" id="remember-me" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"/>
         <label for="remember-me" style="font-size: 14px">Запомнить меня</label>
       </div>
       <span id="incorrect-input" class="incorrect-input" *ngIf="incorrectInput">Неверное имя пользователя или пароль!</span>

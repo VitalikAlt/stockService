@@ -6,7 +6,7 @@ class SignUpRoute extends BaseRoute {
     }
 
     get paramNames() {
-        return ['login', 'password', 'role', 'secret_key'];
+        return ['login', 'password', 'role', 'secret_key', 'name'];
     }
 
     async handle() {
@@ -19,7 +19,7 @@ class SignUpRoute extends BaseRoute {
             if (this.params.secret_key !== '123')
                 return this.complete('Error: incorrect secret key');
 
-            await this.core.db.users.addUser({login: this.params.login, password: this.params.password, role: this.params.role});
+            await this.core.db.users.addUser({login: this.params.login, password: this.params.password, role: this.params.role, name: this.params.name});
             this.complete(true);
         } catch (err) {
             this.complete(null, err, 'SignUp error');

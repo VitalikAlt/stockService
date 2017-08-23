@@ -6,8 +6,11 @@ import { MaterializeModule } from 'angular2-materialize';
 import { AppRoutingModule } from "./app-routing.module";
 import { NgSpinningPreloader } from 'ng2-spinning-preloader';
 
+import { HttpService } from './services/http.service';
+import { UserService } from './services/user.service';
+import { AuthGuard } from './services/auth_guard.service';
+
 import { AppComponent } from './app.component';
-import { UserService } from './user.service';
 
 import { AuthComponent } from './components/auth/auth.component';
 
@@ -18,11 +21,8 @@ import { StudentProfileComponent } from './components/student/pages/student-prof
 import { StudentProgressComponent } from './components/student/pages/student-progress/student-progress.component'
 import { StudentScheduleComponent } from './components/student/pages/student-schedule/student-schedule.component';
 
-import { TeacherComponent } from './components/teacher/teacher.component';
-import { TeacherProfileComponent } from './components/teacher/pages/profile/profile.component';
-import { TeacherJournalComponent } from './components/teacher/pages/journal/journal.component';
-import { TeacherScheduleComponent } from './components/teacher/pages/schedule/schedule.component';
-import { TeacherReportsComponent } from './components/teacher/pages/reports/reports.component';
+import { ManagerComponent } from './components/manager/manager.component';
+import { ManagerStockComponent } from './components/manager/pages/stock/stock.component';
 
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminGroupsComponent } from './components/admin/pages/groups/groups.component';
@@ -41,11 +41,8 @@ import { AdminSubjectsComponent } from './components/admin/pages/subjects/subjec
     StudentProgressComponent,
     StudentScheduleComponent,
 
-    TeacherComponent,
-    TeacherProfileComponent,
-    TeacherJournalComponent,
-    TeacherScheduleComponent,
-    TeacherReportsComponent,
+    ManagerComponent,
+    ManagerStockComponent,
 
     AdminComponent,
     AdminGroupsComponent,
@@ -59,7 +56,7 @@ import { AdminSubjectsComponent } from './components/admin/pages/subjects/subjec
     AppRoutingModule,
     MaterializeModule
   ],
-  providers: [NgSpinningPreloader, UserService],
+  providers: [NgSpinningPreloader, UserService, HttpService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

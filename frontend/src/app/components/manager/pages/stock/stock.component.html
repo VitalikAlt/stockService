@@ -1,70 +1,72 @@
-<div class="teacher-page-container">
-  <div class="student-card">
-    <div class="student-small-card">
-      <h4 class="h4">{{surname}} {{name}} {{fatherName}}</h4>
-      <table class="big-screen">
-        <tr>
-          <td style="width: 60%">
-            <div class="divider"></div>
-            <div class="divider"></div>
-            <div class="divider"></div>
-            <div class="divider"></div>
-            <div class="section">
-              <h6>Воинское звание:</h6>
-              <p>Подполковник</p>
-            </div>
-            <div class="divider"></div>
-            <div class="section">
-              <h6>Должность на кафедре:</h6>
-              <p>Старший преподаватель</p>
-            </div>
-          </td>
-          <td>
-            <div class="student-img-container col s4">
-              <img src="../../../../../assets/2.jpg" class="img-responsive" width="145" height="auto">
-            </div>
-          </td>
-        </tr>
-      </table>
-      <!--<h4 class="big-screen">Данные преподавателя</h4>-->
-      <div class="divider small-screen"></div>
-      <div class="divider small-screen"></div>
-      <div class="divider small-screen"></div>
-      <div class="divider small-screen"></div>
-      <div class="section small-screen">
-        <h6>Воинское звание:</h6>
-        <p>Подполковник</p>
-      </div>
-      <div class="divider small-screen"></div>
-      <div class="section small-screen">
-        <h6>Должность на кафедре:</h6>
-        <p>Старший преподаватель</p>
-      </div>
-      <!--<div class="divider"></div>-->
-      <h4 class="h4" style="margin-top: 30px">Персональные данные</h4>
-      <div class="divider"></div>
-      <div class="divider"></div>
-      <div class="divider"></div>
-      <div class="divider"></div>
-      <div class="section">
-        <h6>Образовение:</h6>
-        <p>Высшее там-то там-то</p>
-      </div>
-      <div class="divider"></div>
-      <div class="section">
-        <h6>Дата рождений:</h6>
-        <p>16/11/1996</p>
-      </div>
-      <div class="divider"></div>
-      <div class="section">
-        <h6>Начало работы:</h6>
-        <p>2015</p>
-      </div>
-      <div class="divider"></div>
-      <div class="section">
-        <h6>Адрес проживания:</h6>
-        <p>г. Иваново ул. Зеленная д. 55</p>
-      </div>
+<div>
+  <table class="table bordered highlight centred">
+    <tr>
+      <th>№</th>
+      <th (click)="changeSort('name')" class="pointer-center">
+        Название
+        <i *ngIf="sort[0] === 'name' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'name' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+      <th (click)="changeSort('size')" class="pointer-center">
+        Размер
+        <i *ngIf="sort[0] === 'size' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'size' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+      <th (click)="changeSort('growth')" class="pointer-center">
+        Рост
+        <i *ngIf="sort[0] === 'growth' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'growth' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+      <th (click)="changeSort('count')" class="pointer-center">
+        Кол-во на складе, шт
+        <i *ngIf="sort[0] === 'count' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'count' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+      <th (click)="changeSort('reserves')" class="pointer-center">
+        Резервы
+        <i *ngIf="sort[0] === 'reserves' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="sort[0] === 'reserves' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по названию" [(ngModel)]="search.name" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по размеру" [(ngModel)]="search.size" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по росту" [(ngModel)]="search.growth" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по количеству" [(ngModel)]="search.count" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по резервам" [(ngModel)]="search.reserves" [ngModelOptions]="{standalone: true}"></td>
+    </tr>
+    <tr *ngFor="let stock of stockByFilters(); let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{stock.name}}</td>
+      <td>{{stock.size}}</td>
+      <td>{{stock.growth}}</td>
+      <td>{{stock.count}}</td>
+      <td class="pointer-center" (click)="openReservesModal(); currentStock = stock">{{stock.reserves}}</td>
+    </tr>
+  </table>
+</div>
+
+<div id="reservesModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="reservesModal">
+  <div class="modal-content">
+    <div class="main-content">
+      <h4 class="main">Резервы: {{currentStock.reserves}}</h4>
+      <span>Название дисциплины:</span>
+      <!--<input type="text" class="form-control" [(ngModel)]="disciplineName" [ngModelOptions]="{standalone: true}">-->
+      <br>
+      <span>Преподаватель:</span>
+      <!--<input type="text" class="form-control" [(ngModel)]="teacherSearch" [ngModelOptions]="{standalone: true}">-->
     </div>
+    <div class="teachers-list">
+      <!--<table class="table bordered highlight centred">-->
+        <!--<tr *ngFor="let teacher of teachersByFilter()">-->
+          <!--<td (click)="teacherSearch = teacher.name" class="pointer-center">{{teacher.name}}</td>-->
+        <!--</tr>-->
+      <!--</table>-->
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="closeReservesModal()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeReservesModal()">Отмена</button>
   </div>
 </div>

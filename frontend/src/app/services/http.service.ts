@@ -12,6 +12,11 @@ export class HttpService {
 
   constructor(private http: Http) { }
 
+  private extractData (res: Response) {
+    let body = res.json();
+    return body || { };
+  }
+
   private handleError (error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {
@@ -25,37 +30,11 @@ export class HttpService {
     return Observable.throw(errMsg);
   }
 
-  private extractData (res: Response) {
-    let body = res.json();
-    return body || { };
-  }
-
-  makeFileRequest(files: Array<File>) {
-    return new Promise((resolve, reject) => {
-      var formData: any = new FormData();
-      var xhr = new XMLHttpRequest();
-      for(var i = 0; i < files.length; i++) {
-        formData.append("uploads[]", files[i], files[i].name);
-      }
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-          if (xhr.status == 200) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      }
-      xhr.open("POST", this.baseUrl+'upload', true);
-      xhr.send(formData);
-    });
-  }
-
-  signIn(login : string, password : string) : Observable<any>{
+  signIn(login: string, password: string) : Observable<any>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let url = this.baseUrl + 'signIn';
+    let url = this.baseUrl + 'sign_in';
 
     return this.http
       .post(url, JSON.stringify({login, password}), options)
@@ -63,28 +42,14 @@ export class HttpService {
       .catch(this.handleError);
   }
 
-  signUp(login : string, password : string) : Observable<string>{
+  signUp(login: string, password: string, role: string, name: string) : Observable<string>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let url = this.baseUrl + 'signUp';
+    let url = this.baseUrl + 'sign_up';
 
     return this.http
-      .post(url, JSON.stringify({login, password}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  savePhoto(login : string, password : string, photoData) : Observable<string> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'savePhoto';
-    photoData.login = login;
-    photoData.password = password;
-
-    return this.http
-      .post(url, JSON.stringify(photoData), options)
+      .post(url, JSON.stringify({login, password, role, name, secret_key: '123'}), options)
       .map(this.extractData)
       .catch(this.handleError);
   }

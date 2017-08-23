@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core'
 
-import { User } from './user'
-import {USERS} from './mock-users'
-
 @Injectable()
 export class UserService {
 
-  getUsers(): Promise<User[]>{
-    return Promise.resolve(USERS);
+  private _user: any;
+
+  set(v) {
+    this._user = v;
   }
 
-  getUser(id: number): Promise<User>{
-    return this.getUsers().then(users => users.find(user => user.id === id));
+  get user() {
+    return this._user;
   }
 }

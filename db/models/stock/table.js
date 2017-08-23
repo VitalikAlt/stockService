@@ -1,14 +1,14 @@
-const mongoose    = require('mongoose');
+const mongoose = require('mongoose');
 
-const users = mongoose.Schema;
+const stocks = mongoose.Schema;
 
-const Users = new users({
-    login: { type: String, required: true },
-    password: { type: String, required: true},
-    role: { type: String, required: true},
-    name: { type: String, required: true}
+const Stocks = new stocks({
+    name: { type: String, required: true },
+    size: { type: String, required: true},
+    growth: { type: String, required: true},
+    count: { type: Number, required: true}
 });
 
-const UsersModel = mongoose.model('Users', Users);
+const StocksModel = mongoose.model('Stocks', Stocks);
 
-module.exports = UsersModel;
+module.exports = StocksModel;
