@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TeacherComponent implements OnInit {
 
+  public user = {
+
+  }
+
   constructor() { }
 
   ngOnInit() {
