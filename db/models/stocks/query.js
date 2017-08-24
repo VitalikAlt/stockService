@@ -15,10 +15,10 @@ class StockQuery {
 
         for (let i = 0; i < stocks.length; i++) {
             const reserves = await reservesQuery.get({stock_id: stocks[i]._id});
-            Object.assign(stocks[i]._doc, {reserves, reserves_count: 0});
+            stocks[i]._doc.reserves_count = 0;
 
             for (let j = 0; j < reserves.length; j++) {
-                stocks[i].reserves_count += reserves[j].count;
+                stocks[i]._doc.reserves_count += reserves[j].count;
             }
         }
 

@@ -17,6 +17,8 @@ class GetRoute extends BaseRoute {
             const reserves = await this.core.db.reserves.get({stock_id: this.params.stock_id});
 
             for (let i = 0; i < reserves.length; i++) {
+                reserves[i]._doc.author_name = (await this.core.db.users.getNameByLogin(reserves[i].author_login)).name;
+
                 if (reserves[i].author_login !== this.params.login)
                     reserves[i]._doc.client = 'Не важно';
             }

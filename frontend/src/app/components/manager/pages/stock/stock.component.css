@@ -40,12 +40,21 @@
   opacity: 1 !important;
 }
 
+.reserves td {
+  width: 10%;
+}
+
 .reserves td input {
   margin-bottom: 0;
+  text-align: center;
 }
 
 .modal {
   width: 95%;
   height: 100%;
   top: 0 !important;
+}
+
+.reded {
+  color: red
 }

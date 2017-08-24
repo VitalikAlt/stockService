@@ -20,7 +20,8 @@ export class ManagerComponent implements OnInit {
 
   deleteAllCookies() {
     this.userService.set({});
-    Cookie.deleteAll('/');
+    Cookie.deleteAll();
+    console.log(Cookie.getAll());
     this.router.navigate(['/auth']);
   }
 }

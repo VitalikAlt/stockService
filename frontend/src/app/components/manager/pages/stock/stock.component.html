@@ -55,49 +55,115 @@
     <div class="teachers-list">
       <table class="table bordered highlight centred">
         <tr>
-          <th>Дата создания</th>
-          <th>Менеджер</th>
-          <th>Кол-во*</th>
-          <th>Оплата</th>
-          <th>Дата выгрузки</th>
-          <th>Клиент*</th>
-          <th>Номер счёта</th>
-          <th>Кто шьёт</th>
-          <th>Дата пошива</th>
+          <th (click)="changeReserveSort('date')" class="pointer-center">
+            Дата создания
+            <i *ngIf="reserveSort[0] === 'date' && !reserveSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="reserveSort[0] === 'date' && reserveSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeReserveSort('author_name')" class="pointer-center">
+            Менеджер
+            <i *ngIf="reserveSort[0] === 'author_name' && !reserveSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="reserveSort[0] === 'author_name' && reserveSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeReserveSort('count')" class="pointer-center">
+            Кол-во*
+            <i *ngIf="reserveSort[0] === 'count' && !reserveSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="reserveSort[0] === 'count' && reserveSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeReserveSort('payment')" class="pointer-center">
+            Оплата
+            <i *ngIf="reserveSort[0] === 'payment' && !reserveSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="reserveSort[0] === 'payment' && reserveSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeReserveSort('unloading_date')" class="pointer-center">
+            Дата выгрузки
+            <i *ngIf="reserveSort[0] === 'unloading_date' && !reserveSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="reserveSort[0] === 'unloading_date' && reserveSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeReserveSort('client')" class="pointer-center">
+            Клиент*
+            <i *ngIf="reserveSort[0] === 'client' && !reserveSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="reserveSort[0] === 'client' && reserveSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeReserveSort('payment_id')" class="pointer-center">
+            Номер счёта
+            <i *ngIf="reserveSort[0] === 'payment_id' && !reserveSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="reserveSort[0] === 'payment_id' && reserveSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeReserveSort('maker')" class="pointer-center">
+            Кто шьёт
+            <i *ngIf="reserveSort[0] === 'maker' && !reserveSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="reserveSort[0] === 'maker' && reserveSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeReserveSort('make_date')" class="pointer-center">
+            Дата пошива
+            <i *ngIf="reserveSort[0] === 'make_date' && !reserveSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="reserveSort[0] === 'make_date' && reserveSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
           <th></th>
+        </tr>
+        <tr>
+          <td class="search"><input class="form-control" placeholder="Поиск по дате" [(ngModel)]="reserveSearch.date"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по менеджеру" [(ngModel)]="reserveSearch.author_name"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по кол-ву" [(ngModel)]="reserveSearch.count"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по оплате" [(ngModel)]="reserveSearch.payment"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по дате выгрузки" [(ngModel)]="reserveSearch.unloading_date"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по клиенту" [(ngModel)]="reserveSearch.client"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по номеру счёта" [(ngModel)]="reserveSearch.payment_id"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по производителю" [(ngModel)]="reserveSearch.maker"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по доте пошива" [(ngModel)]="reserveSearch.make_date"></td>
+          <td></td>
         </tr>
         <tr *ngFor="let reserve of reservesByFilter()" class="reserves">
           <td>
-            {{reserve.date.toLocaleDateString()}}
+            {{reserve.date | date:'dd/MM/yyyy'}}
           </td>
           <td>
-            <input class="form-control" [(ngModel)]="reserve.author_name" [disabled]="reserve.author_login !== userService.user.login">
+            <span>{{reserve.author_name}}</span>
           </td>
           <td>
-            <input class="form-control" [(ngModel)]="reserve.count" [disabled]="reserve.author_login !== userService.user.login">
+            <input *ngIf="reserve._id === editingReserveId" class="form-control" [(ngModel)]="reserve.count">
+            <span *ngIf="reserve._id !== editingReserveId">{{reserve.count}}</span>
           </td>
           <td>
-            <input class="form-control" [(ngModel)]="reserve.payment" [disabled]="reserve.author_login !== userService.user.login">
+            <input *ngIf="reserve._id === editingReserveId" class="form-control" [(ngModel)]="reserve.payment">
+            <span *ngIf="reserve._id !== editingReserveId">{{reserve.payment}}</span>
           </td>
           <td>
-            <input class="form-control" [(ngModel)]="reserve.unloading_date" [disabled]="reserve.author_login !== userService.user.login">
+            <input *ngIf="reserve._id === editingReserveId" class="form-control" [(ngModel)]="reserve.unloading_date">
+            <span *ngIf="reserve._id !== editingReserveId">{{reserve.unloading_date}}</span>
           </td>
           <td>
-            <input class="form-control" [(ngModel)]="reserve.client" [disabled]="reserve.author_login !== userService.user.login">
+            <input *ngIf="reserve._id === editingReserveId" class="form-control" [(ngModel)]="reserve.client">
+            <span *ngIf="reserve._id !== editingReserveId">{{reserve.client}}</span>
           </td>
           <td>
-            <input class="form-control" [(ngModel)]="reserve.payment_id" [disabled]="reserve.author_login !== userService.user.login">
+            <input *ngIf="reserve._id === editingReserveId" class="form-control" [(ngModel)]="reserve.payment_id">
+            <span *ngIf="reserve._id !== editingReserveId">{{reserve.payment_id}}</span>
           </td>
           <td>
-            <input class="form-control" [(ngModel)]="reserve.maker" [disabled]="reserve.author_login !== userService.user.login">
+            <input *ngIf="reserve._id === editingReserveId" class="form-control" [(ngModel)]="reserve.maker">
+            <span *ngIf="reserve._id !== editingReserveId">{{reserve.maker}}</span>
           </td>
           <td>
-            <input class="form-control" [(ngModel)]="reserve.make_date" [disabled]="reserve.author_login !== userService.user.login">
+            <input *ngIf="reserve._id === editingReserveId" class="form-control" [(ngModel)]="reserve.make_date">
+            <span *ngIf="reserve._id !== editingReserveId">{{reserve.make_date}}</span>
           </td>
           <td>
-            <a class="btn-floating btn-tiny waves-effect waves-light red" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Заполенены не все поля с *!">
-              <i class="material-icons">priority_high</i>
-            </a>
+            <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать"
+              *ngIf="reserve._id !== editingReserveId" class="small material-icons pointer-center"
+               (click)="updateReserve(reserve)">create</i>
+
+            <!--<a *ngIf="!reserve.count && !reserve.client" class="btn-floating btn-tiny waves-effect waves-light red" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Заполенены не все поля с *!">-->
+              <!--<i class="small material-icons red pointer-center">priority_high</i>-->
+            <!--</a>-->
+
+            <i *ngIf="!reserve.count || !reserve.client"
+               materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Заполенены не все поля с *!"
+               class="small material-icons pointer-center col s6 reded">priority_high</i>
+
+            <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить"
+              class="small material-icons pointer-center col s6" (click)="deleteReserve(reserve)">delete_forever</i>
           </td>
           <!--<td (click)="teacherSearch = teacher.name" class="pointer-center">{{teacher.name}}</td>-->
         </tr>
@@ -105,7 +171,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="closeReservesModal()">Сохранить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="saveReserves()">Сохранить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeReservesModal()">Отмена</button>
   </div>
 </div>

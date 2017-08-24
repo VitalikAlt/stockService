@@ -19,6 +19,14 @@ class ReservesQuery {
         });
     }
 
+    static update(params, conditions) {
+        return new Promise((res, rej) => {
+            Reserve.update(conditions, params, function (err) {
+                return (!err)? res(true) : rej(err);
+            });
+        });
+    }
+
     static delete(params) {
         return new Promise((res, rej) => {
             Reserve.remove(params, (err, success) => {

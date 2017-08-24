@@ -67,7 +67,6 @@ export class HttpService {
   }
 
   getReserves(user, stockId) {
-    console.log(stockId)
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -75,6 +74,18 @@ export class HttpService {
 
     return this.http
       .post(url, JSON.stringify({login: user.login, password: user.password, stock_id: stockId}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  updateReserves(user, reserves) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'reserves/update';
+
+    return this.http
+      .post(url, JSON.stringify({login: user.login, password: user.password, reserves}), options)
       .map(this.extractData)
       .catch(this.handleError);
   }

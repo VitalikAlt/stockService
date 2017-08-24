@@ -17,6 +17,14 @@ class SearchQuery {
         });
     }
 
+    static getNameByLogin(login) {
+        return new Promise((res, rej) => {
+            User.find({login}, (err, data) => {
+                return res(data[0]);
+            })
+        });
+    }
+
     static addUser(el) {
         return new Promise((res, rej) => {
             const newItem = new User(el);
